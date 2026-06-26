@@ -10,7 +10,7 @@ export default defineNuxtConfig({
     '@nuxt/image',
     '@nuxt/test-utils',
     '@nuxt/ui',
-    '@nuxtjs/apollo',
+    'nuxt-graphql-client'
   ],
 
   image: {
@@ -19,6 +19,8 @@ export default defineNuxtConfig({
         baseurl: "https://media.graphassets.com"
       }
     }
-  }
+  },
+
+
 
 })
