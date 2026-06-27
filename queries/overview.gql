@@ -1,5 +1,3 @@
-
-//searches for all IDs to enable random image picking
 query Overview {
   projectCategoryPages {
     id

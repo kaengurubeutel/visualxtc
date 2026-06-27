@@ -8,6 +8,6 @@ export interface Project {
     projectImages: Array<Image>,
 }
 
-export interface TattooImage extends Project {
+export interface TattooProject extends Project {
     isTaken: boolean
 }

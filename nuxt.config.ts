@@ -10,8 +10,10 @@ export default defineNuxtConfig({
     '@nuxt/image',
     '@nuxt/test-utils',
     '@nuxt/ui',
-    'nuxt-graphql-client'
+    '@nuxtjs/apollo'
   ],
+
+
 
   image: {
     providers: {
@@ -20,6 +22,15 @@ export default defineNuxtConfig({
       }
     }
   },
+
+  apollo: {
+    clients: {
+      default: {
+        httpEndpoint: 'https://eu-west-2.cdn.hygraph.com/content/cmq5g8l09008n07uv5yzacwne/master'
+      }
+    }
+  }
+
 
 
 
