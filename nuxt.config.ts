@@ -10,7 +10,8 @@ export default defineNuxtConfig({
     '@nuxt/image',
     '@nuxt/test-utils',
     '@nuxt/ui',
-    '@nuxtjs/apollo'
+    '@nuxtjs/apollo',
+    '@nuxt/fonts'
   ],
 
 

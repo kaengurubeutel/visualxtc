@@ -1,2 +1,7 @@
-User-Agent: *
-Disallow:
+User-agent: *
+Disallow: /_nuxt/image/
+Disallow: /assets/portfolio/
+
+
+User-agent: Googlebot-Image
+Disallow: /

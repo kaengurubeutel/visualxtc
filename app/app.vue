@@ -14,6 +14,13 @@
     }
   }
 } */
+
+useHead({
+  meta: [
+    { name: 'robots', content: 'noimageindex' }
+  ]
+})
+
 </script>
 
 
