@@ -1,9 +1,10 @@
 export interface Image {
-    url: string,
+    imageUrl: string,
     altText: string
 }
 
-export interface StartPageImage extends Image {
-    category: string
+export interface CategoryImage extends Image {
+    categoryTitle: string,
+    slug: string
 };
 

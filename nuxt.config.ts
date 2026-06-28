@@ -24,9 +24,19 @@ export default defineNuxtConfig({
     }
   },
 
+  runtimeConfig: {
+    public: {
+      hygraphEndpoint: process.env.HYGRAPH_ENDPOINT
+    }
+  },
+
   apollo: {
+
+    autoImports: true,
     clients: {
-      default: (process.env.GQL_HOST || '') as string
+      default: {
+        httpEndpoint: (process.env.HYGRAPH_ENDPOINT || '') as string
+      }
     }
   }
 }
