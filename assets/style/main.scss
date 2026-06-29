@@ -4,12 +4,20 @@
     padding: 0;
   }
 
+@font-face {
+    font-family: 'Heal The Web';
+    src: url('/fonts/HealTheWebB-Regular.otf') format('opentype'); // 'HealTheWeb.otf' muss in public/fonts/ liegen
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+
 body {
     background-color: #EBECED;
 }
 
 h1, h2, h3, h4 {
-    font-family: Heal The Web, sans-serif;
+    font-family: 'Heal The Web', sans-serif;
     font-weight: normal;
     color: #0001FE;
 }
