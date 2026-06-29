@@ -1,10 +1,16 @@
 <template>
   <main>
+
     <menu class="menu">
-      <div v-for="(item, key) in displayImages" :key="key" class="menu-item">
-        <img :src="item.imageUrl" :alt="item.altText">
+      <div v-for="(item, index) in displayImages" :key="index" :class="['menu-item', `item-${index}`]">
+
+        <div class="image-wrapper" :style="{ '--mask-url': `url('/masks/mask_${index}.svg')` }">
+          <img :src="item.imageUrl" :alt="item.altText" class="main-image">
+        </div>
+        <img :src="`/menudescr/menue${index}.svg`" :alt="item.slug || 'description'" class="desc-overlay">
       </div>
     </menu>
+
     <section>
       <h2>About</h2>
       <p>Hi! <br /> <br />
@@ -48,21 +54,85 @@ displayImages.value.sort((a, b) => {
 .menu {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  gap: 16px;
+  gap: 40px;
   width: 100%;
   max-width: 600px;
 
   .menu-item {
+    position: relative;
     width: 100%;
     height: 100%;
     aspect-ratio: 1 / 1;
 
-    img {
+
+    .image-wrapper {
       width: 100%;
       height: 100%;
-      object-fit: fill;
-      display: block;
+      background-color: #fff;
+
+      mask-image: var(--mask-url);
+      mask-size: contain;
+      mask-repeat: no-repeat;
+      mask-position: center;
+      -webkit-mask-image: var(--mask-url);
+      -webkit-mask-size: contain;
+      -webkit-mask-repeat: no-repeat;
+      -webkit-mask-position: center;
+
+      .main-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+    }
+
+
+    .desc-overlay {
+      position: absolute;
+      pointer-events: none;
+      object-fit: contain;
+      z-index: 10;
+
+      top: 50%;
+      left: 50%;
+      width: 130%;
+      height: 130%;
+      transform: translate(-50%, -50%);
+    }
+
+
+
+    &.item-0 {
+
+      // Oben Links (ART)
+      .desc-overlay {
+        transform: translate(-50%, -80%) scale(0.9);
+      }
+    }
+
+    &.item-1 {
+
+      // Oben Rechts (TAPDOOZZ)
+      .desc-overlay {
+        transform: translate(-48%, -102%) scale(0.8);
+      }
+    }
+
+    &.item-2 {
+
+      // Unten Links (PHOTOGRAPHY)
+      .desc-overlay {
+        transform: translate(-54%, -46%) scale(1.1);
+      }
+    }
+
+    &.item-3 {
+
+      // Unten Rechts (3D)
+      .desc-overlay {
+        transform: translate(-46%, -46%) scale(1.2);
+      }
     }
   }
 }

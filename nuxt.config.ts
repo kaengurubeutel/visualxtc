@@ -40,7 +40,7 @@ export default defineNuxtConfig({
     }
   },
 
-  css: ["~/assets/style/main.scss"],
+  css: ["../assets/style/main.scss"],
 }
 
 
