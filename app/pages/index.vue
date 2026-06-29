@@ -54,9 +54,9 @@ displayImages.value.sort((a, b) => {
 .menu {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 40px;
-  width: 100%;
-  max-width: 600px;
+  gap: 10px;
+  width: auto;
+  margin: 50px;
 
   .menu-item {
     position: relative;
@@ -84,8 +84,37 @@ displayImages.value.sort((a, b) => {
         height: 100%;
         object-fit: cover;
         display: block;
+        filter: brightness(1);
+        transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), filter 0.4s ease;
+      }
+
+      &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #00ff66;
+        mix-blend-mode: multiply;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+        pointer-events: none;
       }
     }
+
+
+    &:hover {
+      .main-image {
+        transform: scale(1.1);
+      }
+
+      .image-wrapper::after {
+        opacity: 1;
+      }
+    }
+
+
 
 
     .desc-overlay {
@@ -107,7 +136,7 @@ displayImages.value.sort((a, b) => {
 
       // Oben Links (ART)
       .desc-overlay {
-        transform: translate(-50%, -80%) scale(0.9);
+        transform: translate(-48%, -83%) scale(0.7);
       }
     }
 
@@ -115,7 +144,7 @@ displayImages.value.sort((a, b) => {
 
       // Oben Rechts (TAPDOOZZ)
       .desc-overlay {
-        transform: translate(-48%, -102%) scale(0.8);
+        transform: translate(-35%, -72%) scale(0.7);
       }
     }
 
@@ -123,7 +152,7 @@ displayImages.value.sort((a, b) => {
 
       // Unten Links (PHOTOGRAPHY)
       .desc-overlay {
-        transform: translate(-54%, -46%) scale(1.1);
+        transform: translate(-57%, -30%) scale(0.83);
       }
     }
 
@@ -131,7 +160,7 @@ displayImages.value.sort((a, b) => {
 
       // Unten Rechts (3D)
       .desc-overlay {
-        transform: translate(-46%, -46%) scale(1.2);
+        transform: translate(-25%, -22%) scale(0.55);
       }
     }
   }
