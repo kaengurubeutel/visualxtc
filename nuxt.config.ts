@@ -19,7 +19,7 @@ export default defineNuxtConfig({
   image: {
     providers: {
       hygraph: {
-        baseurl: "https://media.graphassets.com"
+        baseurl: "https://eu-west-2.graphassets.com/"
       }
     }
   },
@@ -38,7 +38,9 @@ export default defineNuxtConfig({
         httpEndpoint: (process.env.HYGRAPH_ENDPOINT || '') as string
       }
     }
-  }
+  },
+
+  css: ["~/assets/style/main.scss"],
 }
 
 
