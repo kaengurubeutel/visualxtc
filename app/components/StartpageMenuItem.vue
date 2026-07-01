@@ -2,7 +2,6 @@
   <NuxtLink :to="`/work/${item.slug}`" :class="['menu-item', `item-${index}`, { 'is-loading': !imageLoaded }]">
 
     <div class="image-wrapper" :style="{ '--mask-url': `url('/masks/mask_${index}.svg')` }">
-      <!-- ref="imageRef" hinzugefügt, um das Element im Skript greifen zu können -->
       <img ref="imageRef" :src="item.imageUrl" :alt="item.altText || 'Visual Space Item'" class="main-image"
         @load="onImageLoad">
     </div>
@@ -24,12 +23,10 @@ const props = defineProps({
 const imageLoaded = ref(false);
 const imageRef = ref<HTMLImageElement | null>(null);
 
-// Falls das Bild ganz normal lädt
 const onImageLoad = () => {
   imageLoaded.value = true;
 };
 
-// Falls Nuxt das Event beim Reload/Hydrieren verpasst, prüft dieser Hook den Browser-Cache
 onMounted(() => {
   if (imageRef.value && imageRef.value.complete) {
     imageLoaded.value = true;
@@ -112,7 +109,7 @@ const overlayStyle = computed(() => {
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: #00ff66;
+      background-color: #ececec;
       mix-blend-mode: multiply;
       opacity: 0;
       transition: opacity 0.4s ease;
