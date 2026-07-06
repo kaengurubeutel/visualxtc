@@ -2,13 +2,16 @@
 import { computed } from 'vue';
 import type { CategoryImage } from '~~/models/Images';
 
-// Daten asynchron laden
-const displayImages: Ref<CategoryImage[]> = await useRandomImages();
+
+const displayImages = await useRandomImages();
 const slugOrder = ['art', 'taddozz', 'photo', '3d'];
 
-// Sicher sortieren über ein Computed Property (verhindert Mutation des Original-States)
+
+const { exhibitions } = await useExhibitions();
+
+
 const sortedImages = computed(() => {
-  if (!displayImages.value) return [];
+  if (!displayImages?.value) return [];
 
   return [...displayImages.value].sort((a, b) => {
     let indexA = slugOrder.indexOf(a.slug);
@@ -23,20 +26,29 @@ const sortedImages = computed(() => {
 </script>
 
 <template>
-  <main class="scroll-container">
 
-    <!-- Erste Sektion: Menü -->
+  <div class="scroll-container">
+
+
     <div class="fullscreen-sec">
-      <menu class="menu">
-        <StartpageMenuItem v-for="(item, index) in sortedImages" :key="item.slug || index" :item="item"
-          :index="index" />
-      </menu>
+
+      <ClientOnly>
+
+        <div class="menu">
+          <StartpageMenuItem v-for="(item, index) in sortedImages" :key="item.slug || index" :item="item"
+            :index="index" />
+        </div>
+
+        <template #fallback>
+          <div class="menu-fallback">Loading Menu...</div>
+        </template>
+      </ClientOnly>
     </div>
 
     <!-- Zweite Sektion: About -->
     <div class="fullscreen-sec">
       <section class="about-section">
-        <h2>ABOUT</h2>
+        <h1>ABOUT</h1>
         <p>
           Hi! <br /><br />
           I fall in love with places that are free and open, with storys that show passion and courage, with people
@@ -56,7 +68,46 @@ const sortedImages = computed(() => {
       </section>
     </div>
 
-  </main>
+    <!-- Dritte Sektion: Exhibitions -->
+    <div class="fullscreen-sec">
+      <h2>EXHIBITIONS</h2>
+
+      <section v-for="(item, index) in exhibitions" :key="index" class="exhibition-section">
+        <div class="exhibiton-left">
+          <!-- Optional Chaining (?.) eingebaut und den Tippfehler korrigiert (date[1] statt zweimal date[0]) -->
+          <h3>{{ item.date?.[0] || '' }} - {{ item.date?.[1] || '' }}</h3>
+          <h2 class="location-text">{{ item.location }}</h2>
+        </div>
+
+        <div class="exhibition-right">
+          <h2>{{ item.exhibitionTitle }}</h2>
+          <p class="description-text">{{ item.description }}</p>
+        </div>
+      </section>
+    </div>
+
+    <!-- Vierte Sektion: Contact -->
+    <div class="fullscreen-sec">
+      <section class="about-section">
+        <h2>CONTACT</h2>
+        <p>
+          mail me for any business inquiries: <br />
+          hello@by-terry.de
+          ‍<br /><br />
+          Follow me on instagram:<br /><br />
+          Art and Taddoozz: @InkEverywhere-byTerry<br />
+          Photography: @Photos-byTerry
+          <br /><br />
+          You like what you are seeing?
+          I'm open for commissions and even collaborations for photography, art and design. Hmu with your idea!
+          <br /><br />
+          Looking forward to hear from you!<br /><br />
+          -Terry
+        </p>
+      </section>
+    </div>
+
+  </div>
 </template>
 
 <style lang="scss" scoped>
@@ -65,8 +116,6 @@ const sortedImages = computed(() => {
   height: 100%;
   overflow-y: auto;
   scrollbar-width: none;
-
-  // Verhindert das Übereinanderlappen beim Navigieren
   display: flex;
   flex-direction: column;
 
@@ -100,14 +149,20 @@ const sortedImages = computed(() => {
   margin: 0;
 }
 
+.menu-fallback {
+  color: #25432F;
+  font-family: Syne, sans-serif;
+}
+
 .fullscreen-sec {
   display: flex;
-  // Nutzt min-height, damit Inhalte bei kleinen Screens nicht abgeschnitten werden
+  flex-direction: column;
   min-height: calc(100vh - 60px);
-  width: 100%; // Auf 100% korrigiert, da 50vw die Seite horizontal halbiert hätte
+  width: 100%;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0; // Verhindert, dass die Sektionen gestaucht werden
+  flex-shrink: 0;
+  gap: 40px;
 }
 
 .about-section {
@@ -121,6 +176,37 @@ const sortedImages = computed(() => {
   p {
     text-align: center;
     line-height: 1.6;
+  }
+}
+
+.exhibition-section {
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
+
+  h2,
+  h3 {
+    font-family: Syne, sans-serif;
+    font-weight: 600;
+    color: #25432F;
+    font-size: 1.2em;
+  }
+
+  h3 {
+    font-size: 0.9em;
+    color: #36513f;
+  }
+
+  .location-text,
+  .description-text {
+    white-space: pre-line;
+  }
+
+  .exhibition-right {
+    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
   }
 }
 </style>

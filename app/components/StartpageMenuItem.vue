@@ -1,16 +1,3 @@
-<template>
-  <NuxtLink :to="`/work/${item.slug}`" :class="['menu-item', `item-${index}`, { 'is-loading': !imageLoaded }]">
-
-    <div class="image-wrapper" :style="{ '--mask-url': `url('/masks/mask_${index}.svg')` }">
-      <img ref="imageRef" :src="item.imageUrl" :alt="item.altText || 'Visual Space Item'" class="main-image"
-        @load="onImageLoad">
-    </div>
-
-    <img v-if="imageLoaded" :src="`/menudescr/menue${index}.svg`" :alt="item.slug || 'description'" class="desc-overlay"
-      :style="overlayStyle">
-  </NuxtLink>
-</template>
-
 <script lang="ts" setup>
 import { computed, ref, onMounted } from 'vue';
 import type { CategoryImage } from '~~/models/Images';
@@ -47,6 +34,22 @@ const overlayStyle = computed(() => {
   };
 });
 </script>
+
+
+<template>
+  <NuxtLink :to="`/work/${item.slug}`" :class="['menu-item', `item-${index}`, { 'is-loading': !imageLoaded }]">
+
+    <div class="image-wrapper" :style="{ '--mask-url': `url('/masks/mask_${index}.svg')` }">
+      <img ref="imageRef" :src="item.imageUrl" :alt="item.altText || 'Visual Space Item'" class="main-image"
+        @load="onImageLoad">
+    </div>
+
+    <img v-if="imageLoaded" :src="`/menudescr/menue${index}.svg`" :alt="item.slug || 'description'" class="desc-overlay"
+      :style="overlayStyle">
+  </NuxtLink>
+</template>
+
+
 
 <style lang="scss" scoped>
 .menu-item {
